@@ -1,0 +1,210 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r plot cars}
+plot(cars, xlab="Velocidad (mph)", ylab="Distancia de frenado (ft)")
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r Matrix Creation}
+v <- c(5,10,15,20)
+w <- c(25,30,35,40)
+m <- rbind(v,w)
+```
+
+
+```{r}
+colnames(m) <- c("perro", "gato", "caballo", "gallina")
+m
+m[,2]
+```
+```{r DF Creation}
+Costo <- c(5,10,15,20)
+Mes <- c("Enero", "Febrero", "Marzo", "Abril")
+Excedente <- c(TRUE, FALSE, FALSE, TRUE)
+
+df <- data.frame(Costo, Mes, Excedente)
+```
+
+
+```{r}
+```
+
+
+```{r}
+library(dplyr)
+```
+```{r Use csv}
+df <- read.csv("Costos.csv")
+df $Costo
+```
+
+
+```{r filter data}
+filter(df, Costo < 10)
+```
+```{r}
+filter(df, Excedente == TRUE)
+```
+
+
+```{r}
+filter(df, Excedente == TRUE & Mes == "Abril")
+```
+```{r use a DF from system}
+data  <- data.frame(Year= time(Nile), Flow = as.numeric(Nile))
+names(data)
+```
+```{r}
+Flow <- data $Flow
+mean(Flow)
+sd(Flow)
+```
+```{r}
+hist(Flow)
+```
+
+
+```{r}
+plot(data)
+```
+```{r}
+library(ggplot2)
+```
+```{r}
+datos <- read.csv("Precios.csv")
+datos
+```
+```{r}
+p <- ggplot(datos)
+p <- p + aes(x = Petroleo, y = Dolar, colour = Mes, shape = Mes)
+p <- p + scale_shape_manual(values=c(16,17,15,18))
+p <- p + scale_color_manual(values = c("purple", "orange", "brown", "red"))
+p <- p + geom_point()
+p
+```
+```{r Crear Gráfico personalizado de líneas y puntos}
+p <- ggplot(datos)
+p <- p + aes(x = Petroleo, y = Dolar)
+p <- p + geom_line(linetype=3, size=1, colour="red", alpha=0.8)
+p <- p + geom_point(shape=15, size=1.8, colour="pink", alpha=0.9)
+p <- p + xlab("Días transcurridos")
+p <- p + ylab("Tasa de cambio")
+p <- p + ggtitle ("Fluctuación del dólar")
+p
+```
+```{r grafico barras COVID-19}
+data <- read.csv("COVID19MX.csv")
+g <- ggplot(data)
+g <- g + aes(x = ENTIDAD, fill = DEFUNCION)
+g <- g + geom_bar(width=0.5)
+g <- g + scale_fill_manual(values=c("red", "blue"))
+g <- g + xlab("Lugar")
+g <- g + ylab("Nro de infectados")
+g <- g + ggtitle("Datos COVID-19")
+
+g
+
+```
+```{r Pie Chart COVID-19}
+library(dplyr)
+data <- read.csv("COVID19MX.csv")
+data <- filter(data, ENTIDAD ==  "ESTADO DE MEXICO")
+g <- ggplot(data)
+g <- g + aes(x = ENTIDAD, fill = DEFUNCION)
+g <- g + geom_bar(width=0.5)
+g <- g + scale_fill_manual(values=c("red", "blue"))
+g <- g + ylab("Nro de infectados")
+g <- g + ggtitle("Datos COVID-19")
+g <- g + coord_polar("y")
+
+g
+
+```
+```{r histograma COVID-19}
+
+data <- read.csv("COVID19MX.csv")
+p <- ggplot(data)
+p <- p + aes (x = EDAD, colour = SEXO)
+p <- p + geom_histogram(fill="gray 40", binwidth=2)
+p <- p + xlab("Edad")
+p <- p + ylab("Nro de Infectados")
+p <- p + ggtitle("Personas infectadas por COVID 19 segun sexo")
+p
+
+```
+```{r funcion condicional}
+calificacion <- 6
+if(calificacion >= 70){
+  print ("aprobado")
+}else if (calificacion >=50 && calificacion < 70){
+  print ("desaprobado")
+}else{
+  print ("recuperatorio")
+}
+```
+
+
+```{r funcion ciclo for}
+
+pedidos <- c(5,3,7,2,8)
+
+for(k in 1:5){
+  camisas <- pedidos[k]
+  costo <- camisas*120
+  print(costo)
+}
+```
+```{r funcion ciclo while}
+
+disponibles <- 15
+k <- 1
+while(disponibles != 0){ 
+  camisas <- pedidos[k] #camisas es igual a pedidos que se inicializa en 1
+  costo <- camisas*120
+  print(costo)
+  k <- k+1
+  disponibles <- disponibles - camisas
+}
+```
+```{r ciclo con next y break}
+Prenda <- c("remera", "camisa", "corbata", "pantalon")
+Cantidad <- c(5,10,15,20)
+Inventario <- data.frame(Prenda, Cantidad)
+
+for(k in 1:4){
+  if(Prenda[k] != "camisa"){
+    next
+  }else{
+    print(paste("camisa encontrada en la posición", k))
+    break
+  }
+}
+```
+
+
+```{r funcion nros primos}
+
+primos <- function(numero){
+  for(k in 2:(numero - 1)){
+    if(numero %% k == 0){
+      return("No es primo")
+    }else{
+      return("Es primo")
+    }
+  }
+  
+}
+
+primos(1545)
+```

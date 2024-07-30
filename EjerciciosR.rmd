@@ -1,0 +1,71 @@
+```{r Ejercicio 1}
+library(tibble)
+
+a <- c('NAME:Maria /COUNTRY:uruguay /EMAIL:mariaUY@gmail.com',
+'NAME:Paul /COUNTRY:UK /EMAIL:PaulUK@gmail.com',
+'NAME:Jhon /COUNTRY:USA /EMAIL:JhonUSA@gmail.com',
+'NAME:Carlos /COUNTRY:Spain /EMAIL:CarlosSP@gmail.com')
+
+extraer_datos <- function (cadena){
+  partes <- strsplit(cadena, " /")[[1]]
+  nombre <- sub("NAME:", "", partes[1])
+  pais <- sub("COUNTRY:", "", partes[2])
+  email <- sub("EMAIL:", "", partes[3])
+  
+  return(c(NAME=nombre, COUNTRY=pais, EMAIL=email))
+}
+
+datos_extraidos <- t(sapply(a, extraer_datos))
+
+tabla
+```
+
+
+```{r Ejercicio 1}
+<-
+```
+
+
+```{r Ejercicio 1}
+as.data.frame(datos_extraidos, stringAsFactors = FALSE)
+
+print(tabla)
+
+```
+
+
+```{r Ejercicio 2}
+install.packages("C:/Users/Niki/Documents/suma.dos.numeros_0.0.0.9000.tar.gz", repos = NULL, type = "source")
+```
+
+
+```{r Ejercicio 2}
+installed.packages()["suma.dos.numeros", ]
+
+```
+
+
+```{r Ejercicio 2}
+library(devtools)
+create_package("C:/Users/Niki/Documents/RStudio")
+
+
+```
+```{r Ejercicio 2}
+library(suma.dos.numeros)
+suma.dos.numeros(2, 3)
+
+```
+
+```{r Ejercicio 2}
+
+library(devtools)
+install_github("url del paquete")
+library("SUMA")
+suma.dos.numeros(2, 2)
+suma.dos.numeros(2, 5)
+?suma.dos.numeros
+remove.packages("SUMA")
+
+```
+

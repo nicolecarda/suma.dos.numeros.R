@@ -1,0 +1,5 @@
+"Costo","Mes","Excedente"
+5,"Enero",TRUE
+10,"Febrero",FALSE
+15,"Marzo",FALSE
+20,"Abril",TRUE
